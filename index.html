@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <title>Chart using XML Data</title>
+  <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+  <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+  <script type="text/javascript">
+  
+  window.onload = function() {
+	var dataPoints = [];
+	
+	$.get("https://canvasjs.com/services/data/datapoints.php?xstart=5&ystart=10&length=10&type=xml", function(data) {
+		$(data).find("point").each(function () {
+			var $dataPoint = $(this);
+			var x = $dataPoint.find("x").text();
+			var y = $dataPoint.find("y").text();
+			dataPoints.push({x: parseFloat(x), y: parseFloat(y)});
+			
+		});
+		
+		var chart = new CanvasJS.Chart("chartContainer", {
+			title: {
+			    text: "Chart Using XML Data",
+			},
+			data: [{
+			    type: "column",
+			    dataPoints: dataPoints,
+			  }]
+		});
+		
+		chart.render();
+	});
+  }
+  </script>
+</head>
+<body>
+	<table style="width:35%">
+  <tr>
+    <th>Partido</th>
+    <th>Candidato</th>
+    <th>Color</th>
+  </tr>
+  <tr>
+    <td>MORENA</td>
+    <td>AMLO</td>
+    <td>AZUL</td>
+  </tr>
+  <tr>
+    <td>PAN</td>
+    <td>ANAYA</td>
+    <td>ROJO</td>
+  </tr>
+  <tr>
+    <td>PRI</td>
+    <td>MEADE</td>
+    <td>VERDE</td>
+  </tr>
+  <tr>
+    <td>PRD</td>
+    <td>ANAYA</td>
+    <td>TURQUEZA</td>
+  </tr>
+  <tr>
+    <td>PARTIDO VERDE</td>
+    <td>MEADE</td>
+    <td>MORADO</td>
+  </tr>
+  <tr>
+    <td>PT</td>
+    <td>AMLO</td>
+    <td>AZUL CLARO</td>
+  </tr>
+  <tr>
+    <td>MOVIMIENTO CIUDADANO</td>
+    <td>ANAYA</td>
+    <td>NARANJA</td>
+  </tr>
+  <tr>
+    <td>NUEVA ALIANZA</td>
+    <td>MEADE</td>
+    <td>MORADO FUERTE</td>
+  </tr>
+  <tr>
+    <td>ENCUENTRO SOCIAL</td>
+    <td>AMLO</td>
+    <td>VERDE OSCURO</td>
+  </tr>
+  <tr>
+    <td>INDEPENDIENTE</td>
+    <td>BRONCO</td>
+    <td>AZUL REY</td>
+  </tr>
+</table> 
+	<div id="chartContainer" style="width:100%; height:300px;"></div>
+</body>
+</html>
